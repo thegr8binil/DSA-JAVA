@@ -33,6 +33,23 @@ public class Array{
         count++;
     }
 
+    public void deleteAtStart(){
+        if(count == 0){
+            System.out.println("Deletion not possible");
+        }
+        for(int i = 0; i < count-1; i++){
+            nums[i]=nums[i+1];
+        }
+        count --;
+    }
+
+    public void deleteAtEnd(){
+        if(count == 0){
+            System.out.println("Deletion not possible");
+        }
+        count--;
+    }
+
     public void print(){
         for(int i = 0; i<count;i++){
             System.out.println(nums[i]);
@@ -55,6 +72,9 @@ public class Array{
         arr.insertAtIndex(11,1);
         arr.insertAtStart(0);
         arr.insertAtStart(1);
+        arr.insetAtEnd(99);
+        arr.deleteAtStart();
+        arr.deleteAtEnd();
         arr.print();
     }
 }
