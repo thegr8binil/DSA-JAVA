@@ -1,80 +1,120 @@
+import javax.swing.plaf.IconUIResource;
+
 public class Array{
     private int[] nums;
-    private int count;
+    private int size;
 
-    public Array(int value){
-        nums = new int[value];
-        count = 0;
+    public Array(int capcity){
+        nums = new int[capcity];
+        size = 0;
     }
+
     public void insertAtStart(int value){
         ensureCapacity();
-        for(int i= count;i>0;i--){
+        for(int i = size; i>0; i--){
             nums[i] = nums[i-1];
         }
         nums[0] = value;
-        count ++;
+        size++;
     }
 
-    public void insertAtIndex(int value, int index){
-        if (index < 0 || index > nums.length) {
-            System.out.println("Insertion not possible at "+index+" "+"of array");
-        }
+    public void insertAtEnd(int value){
         ensureCapacity();
-        for(int i= index; i>0; i--){
-            nums[i] = nums[i-1];
-        }
-        count ++;
-        nums[index] = value;
-    }
-
-    public void insetAtEnd(int value){
-        ensureCapacity();
-        nums[count] = value;
-        count++;
-    }
-
-    public void deleteAtStart(){
-        if(count == 0){
-            System.out.println("Deletion not possible");
-        }
-        for(int i = 0; i < count-1; i++){
-            nums[i]=nums[i+1];
-        }
-        count --;
-    }
-
-    public void deleteAtEnd(){
-        if(count == 0){
-            System.out.println("Deletion not possible");
-        }
-        count--;
+        nums[size] = value;
+        size++;
     }
 
     public void print(){
-        for(int i = 0; i<count;i++){
-            System.out.println(nums[i]);
+        for(int i = 0; i<size;i++){
+            System.out.print(nums[i]+" ");
+        }
+    }
+
+    public void insertAtIndex(int value, int index){
+        ensureCapacity();
+        if(index < 0 || index > size){
+            System.out.println("Insertion at the index "+index+" is not possible");
+        }
+        else{
+            for(int i=size; i>index;i--){
+                nums[i] = nums[i-1];
+            }
+            nums[index] = value;
+            size++;
+        }
+    }
+
+    public void deleteAtStart(){
+        if(size == 0){
+            System.out.println("Array is empty");
+        }
+        for(int i=0; i<size-1;i++){
+            nums[i] = nums[i+1];
+        }
+        size--;
+    }
+
+    public void deleteAtEnd(){
+        if(size==0){
+            System.out.println("Array is empty");
+        }
+        size--;
+    }
+
+    public void deleteAtIndex(int index){
+        if(index<0 || index>size){
+            System.out.println("Deletion not possible");
+        }
+        for(int i = index; i<size-1;i++){
+            nums[i] = nums[i+1];
+        }
+        size--;
+    }
+
+    public void deleteValue(int value){
+        int index = -1;
+        for(int i=0; i<size;i++){
+            if(nums[i]==value){
+                index = i;
+                break;
+            }
+        }
+        if(index != -1){
+            for(int i = index; i<size-1;i++){
+                nums[i] = nums[i+1];
+            }
+            size--;
+        }
+        else{
+            System.out.println(value+" not found in array");
         }
     }
 
     public void ensureCapacity(){
-        if(count == nums.length){
-            int[] newNums = new int[nums.length*2];
-            for(int i=0; i<nums.length;i++){
+        if(size == nums.length){
+            int [] newNums = new int[nums.length*2];
+            for(int i = 0;  i< nums.length;i++){
                 newNums[i] = nums[i];
             }
             nums = newNums;
         }
     }
 
+
+
     public static void main(String[] args){
         Array arr = new Array(3);
-        arr.insertAtIndex(10,0);
-        arr.insertAtIndex(11,1);
-        arr.insertAtStart(0);
         arr.insertAtStart(1);
-        arr.insetAtEnd(99);
+        arr.insertAtEnd(2);
+        arr.insertAtIndex(10,2);
+        arr.insertAtIndex(11,3);
+        arr.insertAtIndex(12,4);
+        arr.insertAtIndex(13,0);
         arr.deleteAtStart();
-        arr.deleteAtEnd();
+        arr.deleteAtIndex(0);
+        arr.deleteAtIndex(3);
+        arr.deleteValue(2);
+        arr.deleteValue(10);
         arr.print();
     }
 }
