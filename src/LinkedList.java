@@ -57,7 +57,7 @@ public class LinkedList{
         }
         if(head == tail){
             head = tail = null;
-        }
+         }
         var secound = head.next;
         head.next = null;
         head = secound;
